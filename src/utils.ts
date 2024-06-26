@@ -1,7 +1,18 @@
 import { Client } from 'pg';
 
 export async function getClient() {
-    const client = new Client("postgres://wzsxsnxg:LHZ9Cv4QoZ1zctxapkOq2ch672-o9UQe@trumpet.db.elephantsql.com/wzsxsnxg");
-    await client.connect();
-    return client;
+    const connectionString = "postgresql://chaiaurcode:chaiaurcode@localhost:5432/chaiDB";
+    
+    const client = new Client({
+        connectionString: connectionString
+    });
+
+    try {
+        await client.connect();
+        console.log("Connected successfully to the database");
+        return client;
+    } catch (error) {
+        console.error('Error connecting to the database:', error);
+        throw error;
+    }
 }
